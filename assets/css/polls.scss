@@ -1,0 +1,19 @@
+@mixin avatar($dimention: 70px) {
+  width: $dimention;
+	height: $dimention;
+	line-height: $dimention;
+	text-align: center;
+	font-family: "Roboto Mono", monospace !important;
+	font-size: 25px;
+	font-weight: 700;
+	color: #FFF;
+	border-radius: 4px;
+	background-color: green;
+}
+
+.poll-list-item {
+	margin: 0px 0 25px 0;
+	.poll-avatar {
+		@include avatar;
+	}
+}

@@ -1,0 +1,42 @@
+<i id="poll-channel" data-poll="<%= @poll.id %>"></i>
+
+<section>
+	<h2>Poll: <%= @poll.title %></h2>
+	<p><%= @poll.description %></p>
+
+	<div class="row">
+		<div class="col-sm-7">
+			<ul class="list-group">
+				<%= for option <- Enum.sort(@poll.options, &(&1.id >= &2.id)) do %>
+				  <li class="list-group-item d-flex justify-content-between align-items-center">
+				    <p class="mb-0">
+				    	<%= option.title %>:
+				    	<strong id="vote-count-<%= option.id %>" class="vote-count"><%= option.votes %></strong>
+				    </p>
+				    <a href="/options/<%= option.id %>/vote" 
+				    	class="btn btn-outline-info btn-sm vote-btn" 
+				    	data-option-id="<%= option.id %>">Vote
+				    </a>
+				  </li>
+				 <% end %>
+			</ul>
+		</div>
+		<div class="col-sm-5">
+			<%= if @poll.image do %>
+			  <figure class="figure float-right">
+			    <img 
+			    	src="<%= @poll.image.url %>" 
+			    	alt="<%= @poll.image.alt %>" 
+			    	class="img-thumbnail" 
+			    	style="width: 350px;" 
+			    />
+			    <figcaption class="figure-caption text-center"><%= @poll.image.caption %></figcaption>
+			  </figure>
+			<% end %>
+		</div>
+	</div>
+</section>
+
+<section class="chat card">
+	<%= render(SnappyWeb.SharedView, "_chat.html", messages: @poll.messages, chat: @poll.id) %>
+</section>

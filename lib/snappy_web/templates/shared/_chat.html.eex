@@ -1,0 +1,26 @@
+<i id="chat-channel" data-chat="<%= @chat %>"></i>
+
+<div class="card-body">
+	<h4>Interact with some other repliers!</h4>
+	<div class="row">
+		<div class="col-sm-10 chat-display">
+	    <ul class="list-unstyled chat-messages">
+	      <%= for message <- @messages do %>
+	        <li><span class="author">&lt;<%= message.author %>&gt; <span class="message"><%= message.message %></span>
+	      <% end %>
+	    </ul>
+	  </div>
+	  <div class="col-sm-2">
+	  	<strong>Ppl connected!</strong>
+	  	<ul class="list-unstyled username-list mt-2"></ul>
+	  </div>
+	</div>
+  <div class="row chat-ui hidden">
+    <div class="col-md-8">
+      <input class="form-control msg-input"/>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary msg-btn">Send</button>
+    </div>
+  </div>
+</div>

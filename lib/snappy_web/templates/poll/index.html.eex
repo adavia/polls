@@ -1,0 +1,38 @@
+<section>
+	<h2>Lets start answering some polls!</h2>
+	<ul class="list-unstyled mt-3">
+		<%= for poll <- @polls do %>
+			<%= link to: poll_path(@conn, :show, poll) do %>
+				<li class="media poll-list-item">
+					<div class="mr-3 poll-avatar"><%= String.first(poll.title) %></div>
+					<div class="media-body mt-sm-2">
+						<div class="float-right mt-4">
+							<%= link to: poll_path(@conn, :delete, poll), method: :delete do %>
+								<i class="fas fa-trash-alt"></i>
+							<% end %>
+						</div>
+						<h5 class="mb-1"><%= poll.title %></h5>
+						<span><%= poll.description %></span>
+					</div>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+
+	<div class="row">
+		<div class="col-sm-6">
+		  <%= if @opts.include_prev_page do %>
+		    <div class="float-left">
+		      <%= link "<< Previous Page", to: poll_path(@conn, :index, [page: (@opts.page - 1), per_page: @opts.per_page]) %>
+		    </div>
+		  <% end %>
+		</div>
+		<div class="col-sm-6">
+		  <%= if @opts.include_next_page do %>
+		    <div class="float-right">
+		      <%= link "Next Page >>", to: poll_path(@conn, :index, [page: (@opts.page + 1), per_page: @opts.per_page]) %>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+</section>

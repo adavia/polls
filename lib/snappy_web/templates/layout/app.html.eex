@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="remote_ip" content="<%= @conn.remote_ip |> Tuple.to_list() |> Enum.join(".") %>">
+
+    <title>Hello Discuss!</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <%= render SnappyWeb.SharedView, "_navbar.html", conn: @conn %>
+
+    <main role="main" class="container-fluid">
+      <div class="mt-sm-3 text-center">
+        <%= show_flash(@conn) %>
+      </div>
+      <%= render @view_module, @view_template, assigns %>
+    </main>
+  </body>
+  <script type="text/javascript" src="<%= static_path(@conn, "/js/app.js") %>"></script>
+</html>

@@ -1,0 +1,49 @@
+<header class="top-bar">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+      data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" 
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="https://example.com" 
+          id="dropdown01" data-toggle="dropdown" aria-haspopup="true" 
+          aria-expanded="false"> Start here!</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <%= link "All polls", to: poll_path(@conn, :index), class: "dropdown-item" %>
+            <%= link "New poll", to: poll_path(@conn, :new), class: "dropdown-item" %>
+          </div>
+        </li>
+      </ul>
+      <%= if !logged_in?(@conn) do %>
+        <%= form_for @conn, session_path(@conn, :create), [class: "form-inline my-2 my-lg-0"], fn f -> %>
+          <%= text_input f, :email, class: "form-control mr-sm-2", placeholder: "Email" %>
+          <%= password_input f, :password, class: "form-control mr-sm-2", placeholder: "Password" %>
+          <%= submit "Authenticate", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <ul class="navbar-nav ml-sm-2">
+        <%= if !logged_in?(@conn) do %>
+          <li class="nav-item">
+            <%= link to: user_path(@conn, :new), class: "nav-link" do %>
+              <i class="fas fa-user-edit"></i> Or Register
+            <% end %>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <%= if logged_in?(@conn) do %>
+            <%= link "Sign out #{current_user(@conn).email}", 
+              to: session_path(@conn, :delete), method: :delete, class: "nav-link" %>
+          <% else %>
+            <%= link to: session_path(@conn, :request, "github"), class: "nav-link" do %>
+              <i class="fab fa-github"></i> Sign in with Github
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

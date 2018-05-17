@@ -1,0 +1,57 @@
+<h2>Create a new poll!</h2>
+<div class="row"> 
+  <div class="col-md-5">
+    <%= form_for @poll, poll_path(@conn, :create), [multipart: true], fn f -> %>
+      <div class="form-group">
+        <%= label f, :title %>
+        <%= text_input f, 
+          :title, 
+          class: "form-control #{if f.errors[:title] do "is-invalid" end}", 
+          placeholder: "Title" %>
+        <%= error_tag f, :title %>
+      </div>
+      <div class="form-group">
+        <%= label f, :description %>
+        <%= textarea f, 
+          :description, 
+          class: "form-control", 
+          rows: 3,
+          placeholder: "Description" %>
+      </div>
+      <div class="form-group">
+        <%= label f, :poll_options %>
+        <%= text_input f, 
+          :poll_options, 
+          class: "form-control  #{if f.errors[:poll_options] do "is-invalid" end}", 
+          placeholder: "Options" %>
+        <%= error_tag f, :poll_options %>
+      </div>
+      <div class="form-group">
+        <label for="image-data-caption">Image caption</label>
+        <input 
+          id="image-data-caption" 
+          name="image_data[caption]" 
+          placeholder="Image caption" 
+          class="form-control" 
+        />
+      </div>
+      <div class="form-group">
+        <label for="image-data-text">Image alt text</label>
+        <input 
+          id="image-data-text" 
+          name="image_data[alt_text]" 
+          placeholder="Image text" 
+          class="form-control" 
+        />
+      </div>
+      <div class="form-group">
+        <%= label f, :image %>
+        <div class="custom-file">
+          <%= file_input f, :image, class: "custom-file-input" %>
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+      </div>
+      <%= submit "Create new poll", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
